@@ -46,4 +46,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Un utilisateur peut creer plusieurs evenements
+public function evenements()
+{
+    return $this->hasMany(Evenement::class);
+}
+// Un utilisateur peut se inscrir a plusieurs evenements
+public function inscriptions()
+{
+    return $this->hasMany(Inscription::class);
+}
+
 }

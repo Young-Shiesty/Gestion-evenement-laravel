@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('heure');
             $table->integer('nombre_max_participants');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
