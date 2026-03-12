@@ -14,14 +14,14 @@ class SauvegardeEvenementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom'=>['required|string|max:255'],
-            'description'=>['required|string'],
-            'lieu'=>['required|string|max:255'],
-            'categorie'=>['required|string'],
-            'date'=>['required|date'],
-            'heure'=>['required'],
-            'nombre_max_participants'=>['required|integer|min:1'],
-            'image'=>['nullable|image|max:2048'],
+            'nom'=>'required|string|max:255',
+            'description'=>'required|string',
+            'lieu'=>'required|string|max:255',
+            'categorie'=>'required|string',
+            'date'=>'required|date',
+            'heure'=>'required',
+            'nombre_max_participants'=>'required|integer|min:1',
+            'image'=>'nullable|image|max:2048',
         ];
     }
 

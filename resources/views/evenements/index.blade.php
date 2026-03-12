@@ -7,19 +7,19 @@
                    placeholder="Rechercher..." value="{{ request('recherche') }}">
         </div>
         <div class="col-md-3">
-           <select name="categorie" class="form-select">
-            <option value="">Toutes les catégories</option>
-            <option value="sport">Sport</option>
-            <option value="culture">Culture</option>
-            <option value="formation">Formation</option>
-            <option value="autre">Autre</option>
-        </select>
+          <select name="categorie" class="form-select">
+                <option value="">Toutes les catégories</option>
+                <option value="sport"@if(request('categorie')=='sport') selected @endif>Sport</option>
+                <option value="culture"@if(request('categorie') == 'culture')   selected @endif>Culture</option>
+                <option value="formation"@if(request('categorie') == 'formation') selected @endif>Formation</option>
+                <option value="autre"@if(request('categorie') == 'autre')     selected @endif>Autre</option>
+          </select>
         </div>
         <div class="col-md-2">
-            <input type="text" name="lieu" class="form-control" placeholder="Lieu">
+            <input type="text" name="lieu" class="form-control" placeholder="Lieu" value="{{ request('lieu') }}">
         </div>
         <div class="col-md-2">
-            <input type="date" name="date" class="form-control">
+            <input type="date" name="date" class="form-control" value="{{ request('date') }}">
         </div>
         <div class="col-md-2">
             <button type="submit" class="btn btn-primary w-100">Filtrer</button>
@@ -29,6 +29,8 @@
         @foreach($evenements as $evenement)
     <div class="col-md-4 mb-4">
         <div class="card">
+            <img src="{{ asset('storage/' . $evenement->image) }}"
+                            class="card-img-top" style="height: 200px; object-fit: cover;">
             <div class="card-body">
                 <h5>{{ $evenement->nom }}</h5>
                 <p>📅 {{ $evenement->date }} à {{ $evenement->heure }}</p>

@@ -4,10 +4,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\MonEvenementController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $evenements = \App\Models\Evenement::latest()->take(6)->get();
+    return view('accueil',compact('evenements'));
+})->name('accueil');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -21,8 +23,8 @@ Route::middleware('auth')->group(function () {
 //mm quand le user n'est pas connectee il peut voir les evenements
 Route::get('/evenements', [EvenementController::class, 'index'])->name('evenements.index');
 Route::get('/evenements/{evenement}', [EvenementController::class, 'afficher'])->name('evenements.afficher');
-// le middleware pour securisee cad seul les connectee peuvent voir ces pages
 
+// le middleware pour securisee cad seul les connectee peuvent voir ces pages
 Route::middleware('auth')->group(function () {
     Route::get('/evenements/creer/formulaire', [EvenementController::class, 'creer'])->name('evenements.creer');
     Route::post('/evenements', [EvenementController::class, 'sauvegarder'])->name('evenements.sauvegarder');
@@ -34,6 +36,10 @@ Route::middleware('auth')->group(function () {
         ->name('inscriptions.inscrire');
     Route::delete('/evenements/{evenement}/desinscrire', [InscriptionController::class, 'desinscrire'])
         ->name('inscriptions.desinscrire');
+        Route::get('/mes-evenements', [MonEvenementController::class, 'index'])
+        ->name('mes-evenements.index');
+        Route::get('/evenements/{evenement}/participants', [EvenementController::class, 'participants'])
+        ->name('evenements.participants');
 });
 
 require __DIR__.'/auth.php';

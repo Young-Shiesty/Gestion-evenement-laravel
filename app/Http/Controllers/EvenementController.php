@@ -22,6 +22,14 @@ class EvenementController extends Controller
         if ($request->filled('categorie')) {
             $query->where('categorie', $request->categorie);
         }
+
+        if ($request->filled('lieu')) {
+            $query->where('lieu', 'like', '%' . $request->lieu . '%');
+        }
+        if ($request->filled('date')) {
+                $query->where('date', $request->date);
+        }
+    
         $evenements = $query->latest()->get();
 
         return view('evenements.index', compact('evenements'));
@@ -104,4 +112,13 @@ class EvenementController extends Controller
         $evenement->delete();
         return redirect()->route('evenements.index')->with('succes', 'Evenement supprime avec succès !');
     }
+    public function participants(Evenement $evenement)
+    {
+    if ($evenement->user_id !== Auth::id()) {
+        return redirect()->route('evenements.index')
+        ->with('erreur', 'Action non autorisée.');
+    }
+    $participants = $evenement->participants;
+    return view('evenements.participants', compact('evenement', 'participants'));
+}
 }

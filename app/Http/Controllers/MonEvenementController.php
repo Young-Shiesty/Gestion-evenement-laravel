@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;    
 
 class MonEvenementController extends Controller
 {
     public function index()
     {
+        /** @var User $utilisateur */ 
         $utilisateur = Auth::user();
 
         //les evenements que j'ai crees

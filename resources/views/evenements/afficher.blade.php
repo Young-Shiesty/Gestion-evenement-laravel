@@ -17,6 +17,7 @@
             @auth
                 @if(Auth::id() === $evenement->user_id)
                     <a href="{{ route('evenements.editer', $evenement) }}" class="btn btn-warning btn-sm">✏️ Modifier</a>
+                    <a href="{{ route('evenements.participants', $evenement) }}" class="btn btn-info btn-sm">👥 Voir les participants</a>
                     <form method="POST" action="{{ route('evenements.supprimer', $evenement) }}"
                           style="display:inline" onsubmit="return confirm('Supprimer cet événement ?')">
                         @csrf
