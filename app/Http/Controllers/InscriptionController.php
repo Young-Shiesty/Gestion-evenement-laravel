@@ -38,9 +38,6 @@ class InscriptionController extends Controller
         }
         return redirect()->route('evenements.afficher', $evenement)->with('succes', 'Désinscription réussie.');
     }
-    /* where() fait une recherche dans la base de données mais ne retourne rien encore. 
-C'est first() qui va chercher et retourne le premier résultat trouvé.
-Si une inscription est trouvée → $dejaInscrit contient l'inscription 
-Si rien n'est trouvé → $dejaInscrit vaut null */
+   
  
 }

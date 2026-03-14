@@ -42,10 +42,10 @@ class EvenementController extends Controller
     {
         $donnees = $request->validated();
 
-        // On ajoute l'id du createur
+    
         $donnees['user_id'] = Auth::id();
 
-        // Si une image est envoye on la sauvegarde
+    
         if ($request->hasFile('image')) {
             $donnees['image'] = $request->file('image')->store('evenements', 'public');
         }
@@ -59,7 +59,7 @@ class EvenementController extends Controller
     {
         $participants = $evenement->participants;
 
-        // Verifier si l'utilisateur connecte est deja inscrit
+    
         if (Auth::check()) {
             $dejaInscrit = $participants->contains(Auth::id());
         } else {
@@ -70,7 +70,7 @@ class EvenementController extends Controller
     }
     public function editer(Evenement $evenement)
     {
-        // Seul le createur peut modifier
+    
         if ($evenement->user_id !== Auth::id()) {
             return redirect()->route('evenements.index')->with('erreur', 'Seul le creator peut modif.');
         }
@@ -79,20 +79,20 @@ class EvenementController extends Controller
     }
     public function mettreAJour(MettreAJourEvenementRequest $request, Evenement $evenement)
     {
-        // Seul le createur peut modifier
+    
         if ($evenement->user_id !== Auth::id()) {
             return redirect()->route('evenements.index')->with('erreur', 'Seul le creator peut modif.');
         }
 
         $donnees = $request->validated();
 
-        // Si une nouvelle image est envoyée
+    
         if ($request->hasFile('image')) {
-            // On supprime l'ancienne image si elle existe
+        
             if ($evenement->image) {
                 Storage::disk('public')->delete($evenement->image);
             }
-            // On sauvegarde la nouvelle
+    
             $donnees['image'] = $request->file('image')->store('evenements', 'public');
         }
         $evenement->update($donnees);
@@ -100,12 +100,12 @@ class EvenementController extends Controller
     }
     public function supprimer(Evenement $evenement)
     {
-        // Seul le createur peut supprimer
+    
         if ($evenement->user_id !== Auth::id()) {
             return redirect()->route('evenements.index')->with('erreur', 'Seule le creator peut modif.');
         }
 
-        // Supprimer l'image si elle existe
+    
         if ($evenement->image) {
             Storage::disk('public')->delete($evenement->image);
         }
